@@ -25,7 +25,11 @@ exports.register = async (req, res) => {
     const FotoProfil = `images/${req.file.filename}`;
     const FaceDescriptor = JSON.parse(FaceDescriptors);
     console.log(FaceDescriptor);
-
+    const descriptors = [];
+    FaceDescriptor.descriptors.map(item => {
+        const faces = Object.values(item);
+        descriptors.push(faces);
+    });
     // Validasi NIK & EMAIL
     const nik = await UserData.findOne({ NIK });
     const email = await UserData.findOne({ Email });
@@ -50,7 +54,7 @@ exports.register = async (req, res) => {
       },
       Password,
       FotoProfil,
-      FaceDescriptors : FaceDescriptor
+      FaceDescriptors : descriptors
     });
 
     const salt = await bcrypt.genSalt(10);
