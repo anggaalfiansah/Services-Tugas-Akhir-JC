@@ -3,8 +3,6 @@ const mongodb = require("mongoose");
 const UserModel = new mongodb.Schema({
   NIK: {
     type: Number,
-    min: 16,
-    max: 16,
     required: true,
   },
   Nama: {
