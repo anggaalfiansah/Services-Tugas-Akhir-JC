@@ -12,7 +12,8 @@ router.post("/login", login, controller.login);
 
 // Get All User
 router.get("/", authentication, controller.getAllUser);
-// Get All User
+
+// Get User By Id
 router.get("/:id", authentication, controller.getUserByID);
 
 // Get All User Face

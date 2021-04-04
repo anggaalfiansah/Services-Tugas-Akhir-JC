@@ -20,16 +20,15 @@ exports.register = async (req, res) => {
     FaceDescriptors,
   } = req.body;
   try {
-    console.log(req.file);
-    console.log(FaceDescriptors);
+    // Proses Foto & FaceDescritors
     const FotoProfil = `images/${req.file.filename}`;
     const FaceDescriptor = JSON.parse(FaceDescriptors);
-    console.log(FaceDescriptor);
     const descriptors = [];
     FaceDescriptor.descriptors.map(item => {
         const faces = Object.values(item);
         descriptors.push(faces);
     });
+
     // Validasi NIK & EMAIL
     const nik = await UserData.findOne({ NIK });
     const email = await UserData.findOne({ Email });
@@ -59,12 +58,12 @@ exports.register = async (req, res) => {
 
     const salt = await bcrypt.genSalt(10);
     data.Password = await bcrypt.hash(Password, salt);
-    await data.save().then((data) => {
+    await data.save().then((user) => {
       // Save wajah ke collection Faces
       const face = new FaceData({
-        UserID: data.id,
-        Nama: data.Nama,
-        FaceDescriptors: data.FaceDescriptors,
+        UserID: user.id,
+        Nama: user.Nama,
+        FaceDescriptors: user.FaceDescriptors,
       });
       face.save();
 
@@ -80,7 +79,7 @@ exports.register = async (req, res) => {
         (err, token) => {
           if (err) throw err;
           res.status(200).json({
-            data,
+            user,
             token,
             expiresIn: 86400,
           });
