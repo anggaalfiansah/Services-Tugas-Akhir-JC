@@ -4,10 +4,10 @@ exports.authentication = (req, res, next) => {
   if (token) {
     jwt.verify(token, "randomString", (err, user) => {
       if (err) {
-        console.log(err)
+        console.log(err);
         return res.sendStatus(403);
       }
-      console.log
+      console.log;
       req.user = user;
       next();
     });

@@ -16,7 +16,4 @@ router.get("/", authentication, controller.getAllUser);
 // Get User By Id
 router.get("/:id", authentication, controller.getUserByID);
 
-// Get All User Face
-router.get("/Face", controller.getAllFace);
-
 module.exports = router;
