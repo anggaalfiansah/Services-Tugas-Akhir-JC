@@ -24,7 +24,7 @@ exports.register = async (req, res) => {
     const FotoProfil = `images/${req.file.filename}`;
     const FaceDescriptor = JSON.parse(FaceDescriptors);
     const descriptors = [];
-    FaceDescriptor.descriptors.map(item => {
+    FaceDescriptor.map(item => {
         const faces = Object.values(item);
         descriptors.push(faces);
     });
