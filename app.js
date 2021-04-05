@@ -10,6 +10,7 @@ var cors = require("cors");
 var indexRouter = require("./routes/index.route");
 var usersRouter = require("./routes/users.route");
 var faceRouter = require("./routes/face.route");
+var attendanceRouter = require("./routes/attendance.route");
 
 // Koneksi mongodb
 dotenv.config({ path: "./config.env" });
@@ -42,6 +43,7 @@ app.use(express.static(path.join(__dirname, "public")));
 app.use("/", indexRouter);
 app.use("/users", usersRouter);
 app.use("/face", faceRouter);
+app.use("/attendance", attendanceRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
