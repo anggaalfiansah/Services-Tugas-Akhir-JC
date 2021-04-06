@@ -55,6 +55,7 @@ exports.CheckIn = async (req, res) => {
     };
     const check = await AttendanceData.findOne(filter);
     const checkSkrining = await SkriningData.findOne(filter);
+    console.log(checkSkrining)
     if (check.CheckIn == null) {
       if (checkSkrining == null || checkSkrining == undefined) {
         res.status(200).json({
