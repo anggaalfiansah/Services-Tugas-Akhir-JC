@@ -75,7 +75,11 @@ exports.CheckIn = async (req, res) => {
           });
         });
       }
-    } else {
+    } else if(check.CheckIn == "Ditolak, Hasil Skrining Beresiko Besar"){
+      res.status(200).json({
+        message: "Akses anda sudah ditolak karena beresiko besar terkena Covid-19",
+      });
+    }else {
       res.status(200).json({
         message: `Anda sudah check in pada ${update.CheckIn}`,
       });

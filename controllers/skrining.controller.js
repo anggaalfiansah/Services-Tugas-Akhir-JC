@@ -28,7 +28,7 @@ exports.createReport = async (req, res) => {
       });
     } else {
       res.status(403).json({
-        message: `Anda sudah melakukan skrining pada hari ini, dengan hasil anda memiliki ${skrining.HasilTest} terkena Covid-19`,
+        message: `Anda sudah melakukan skrining pada hari ini, dan hasilnya anda memiliki ${skrining.HasilTest} terkena Covid-19`,
       });
     }
   } catch (err) {
