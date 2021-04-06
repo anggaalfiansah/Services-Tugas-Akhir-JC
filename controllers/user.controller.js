@@ -158,8 +158,8 @@ exports.getUserByID = async (req, res) => {
     const data = await UserData.findById(id);
     console.log(data);
     res.status(200).json({
-      message: `Berhasil Mendapatkan User Dengan ID : ${id}`,
       data,
+      message: `Berhasil Mendapatkan User Dengan ID : ${id}`,
     });
   } catch (e) {
     console.error(e);
