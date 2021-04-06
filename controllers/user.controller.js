@@ -24,9 +24,9 @@ exports.register = async (req, res) => {
     const FotoProfil = `images/${req.file.filename}`;
     const FaceDescriptor = JSON.parse(FaceDescriptors);
     const descriptors = [];
-    FaceDescriptor.map(item => {
-        const faces = Object.values(item);
-        descriptors.push(faces);
+    FaceDescriptor.map((item) => {
+      const faces = Object.values(item);
+      descriptors.push(faces);
     });
 
     // Validasi NIK & EMAIL
@@ -53,7 +53,7 @@ exports.register = async (req, res) => {
       },
       Password,
       FotoProfil,
-      FaceDescriptors : descriptors
+      FaceDescriptors: descriptors,
     });
 
     const salt = await bcrypt.genSalt(10);
@@ -141,31 +141,31 @@ exports.login = async (req, res) => {
 
 // Mendapatkan Semua User
 exports.getAllUser = async (req, res) => {
-  UserData.find().exec((err, data) => {
-    if (!err) {
-      res.status(200).json({
-        message: "Berhasil Mendapatkan Semua User",
-        data,
-      });
-    } else {
-      res.status(400).send("Gagal mendapatkan Semua User, ERR : " + err);
-    }
-  });
+  try {
+    const data = await UserData.find();
+    res.status(200).json({
+      message: "Berhasil Mendapatkan Semua User",
+      data,
+    });
+  } catch (e) {
+    console.error(e);
+    res.status(400).send("Gagal mendapatkan Semua User, ERR : " + err);
+  }
 };
 
 // Mendapatkan User Berdasarkan ID
 exports.getUserByID = async (req, res) => {
   const id = req.params.id;
-  UserData.findById(id).exec((err, data) => {
-    if (!err) {
-      res.status(200).json({
-        message: `Berhasil Mendapatkan User Dengan ID : ${id}`,
-        data,
-      });
-    } else {
-      res
-        .status(400)
-        .send(`Gagal mendapatkan User Dengan ID : ${id}, ERR : ${err}`);
-    }
-  });
+  try {
+    const data = await UserData.findById(id);
+    res.status(200).json({
+      message: `Berhasil Mendapatkan User Dengan ID : ${id}`,
+      data,
+    });
+  } catch (e) {
+    console.error(e);
+    res
+      .status(400)
+      .send(`Gagal mendapatkan User Dengan ID : ${id}, ERR : ${err}`);
+  }
 };
