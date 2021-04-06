@@ -51,16 +51,15 @@ exports.CheckIn = async (req, res) => {
     const update = { CheckIn };
     const check = await AttendanceData.findOne(filter);
     const checkSkrining = await SkriningData.findOne(filter);
-    if (check.CheckIn === null) {
-      if (checkSkrining.HasilTest == "Resiko Besar") {
-        console.log(err.message);
-        res.status(403).json({
-          message: "Anda dilarang masuk karena beresiko besar menularkan Covid-19",
-        });
-      } else if (checkSkrining == null || checkSkrining == undefined) {
-        console.log(err.message);
+    if (check.CheckIn == null) {
+      if (checkSkrining == null || checkSkrining == undefined) {
         res.status(403).json({
           message: "Silahkan lakukan skrining mandiri terlebih dahulu",
+        });
+      } else if (checkSkrining.HasilTest == "Resiko Besar") {
+        res.status(403).json({
+          message:
+            "Anda dilarang masuk karena beresiko besar menularkan Covid-19",
         });
       } else {
         await AttendanceData.updateOne(filter, update).then(() => {
