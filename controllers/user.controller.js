@@ -68,7 +68,7 @@ exports.register = async (req, res) => {
       face.save();
 
       const payload = {
-        id: data.id,
+        id: user.id,
       };
       jwt.sign(
         payload,
@@ -79,7 +79,7 @@ exports.register = async (req, res) => {
         (err, token) => {
           if (err) throw err;
           res.status(200).json({
-            user,
+            userID: user.id,
             token,
             expiresIn: 86400,
           });
@@ -111,9 +111,7 @@ exports.login = async (req, res) => {
       });
 
     const payload = {
-      user: {
-        id: user.id,
-      },
+      id: user.id,
     };
 
     jwt.sign(
@@ -125,7 +123,7 @@ exports.login = async (req, res) => {
       (err, token) => {
         if (err) throw err;
         res.status(200).json({
-          user,
+          userID: user.id,
           token,
           expiresIn: 86400,
         });
@@ -158,6 +156,7 @@ exports.getUserByID = async (req, res) => {
   const id = req.params.id;
   try {
     const data = await UserData.findById(id);
+    console.log(data);
     res.status(200).json({
       message: `Berhasil Mendapatkan User Dengan ID : ${id}`,
       data,
