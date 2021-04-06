@@ -29,12 +29,12 @@ exports.createAttendance = async (req, res) => {
           });
         });
       } else {
-        res.status(403).json({
+        res.status(200).json({
           message: `Anda sudah mengajukan kunjungan pada ${Tanggal} ${Bulan} ${Tahun}`,
         });
       }
     } else {
-      res.status(403).json({
+      res.status(200).json({
         message: `Kuota kunjungan pada ${Tanggal} ${Bulan} ${Tahun} sudah penuh`,
       });
     }
@@ -57,12 +57,12 @@ exports.CheckIn = async (req, res) => {
     const checkSkrining = await SkriningData.findOne(filter);
     if (check.CheckIn == null) {
       if (checkSkrining == null || checkSkrining == undefined) {
-        res.status(403).json({
+        res.status(200).json({
           message: "Silahkan lakukan skrining mandiri terlebih dahulu",
         });
       } else if (checkSkrining.HasilTest == "Resiko Besar") {
         await AttendanceData.updateOne(filter, updateResikoBesar);
-        res.status(403).json({
+        res.status(200).json({
           message:
             "Anda dilarang masuk karena beresiko besar menularkan Covid-19",
         });
