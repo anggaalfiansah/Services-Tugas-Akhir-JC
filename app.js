@@ -11,6 +11,7 @@ var indexRouter = require("./routes/index.route");
 var usersRouter = require("./routes/users.route");
 var faceRouter = require("./routes/face.route");
 var attendanceRouter = require("./routes/attendance.route");
+var skriningRouter = require("./routes/skrining.route");
 
 // Koneksi mongodb
 dotenv.config({ path: "./config.env" });
@@ -44,6 +45,7 @@ app.use("/", indexRouter);
 app.use("/users", usersRouter);
 app.use("/face", faceRouter);
 app.use("/attendance", attendanceRouter);
+app.use("/skrining", skriningRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

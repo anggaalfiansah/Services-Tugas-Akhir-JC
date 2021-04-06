@@ -1,6 +1,7 @@
 const UserData = require("../models/user.model");
 const FaceData = require("../models/face.model");
 const AttendanceData = require("../models/attendance.model");
+const SkriningData = require("../models/skrining.model");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 
@@ -170,7 +171,7 @@ exports.getUserByID = async (req, res) => {
   }
 };
 
-// Mendapatkan Kunjungan berdasarkan User ID
+// Mendapatkan data kunjungan berdasarkan User ID
 exports.getAttendanceByID = async (req, res) => {
   const id = req.params.id;
   try {
@@ -186,6 +187,26 @@ exports.getAttendanceByID = async (req, res) => {
       .status(400)
       .send(
         `Gagal mendapatkan Semua Data Kunjungan Dengan UserID : ${id}, ERR : ${err}`
+      );
+  }
+};
+
+// Mendapatkan data skrining berdasarkan User ID
+exports.getSkriningByID = async (req, res) => {
+  const id = req.params.id;
+  try {
+    const data = await SkriningData.find({ UserID: id });
+    console.log(data);
+    res.status(200).json({
+      data,
+      message: `Berhasil Mendapatkan Semua Data Skrining Dengan UserID : ${id}`,
+    });
+  } catch (e) {
+    console.error(e);
+    res
+      .status(400)
+      .send(
+        `Gagal mendapatkan Semua Data Skrining Dengan UserID : ${id}, ERR : ${err}`
       );
   }
 };

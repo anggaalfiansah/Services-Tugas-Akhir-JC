@@ -16,7 +16,10 @@ router.get("/", authentication, controller.getAllUser);
 // Get User By Id
 router.get("/:id", authentication, controller.getUserByID);
 
-// Get Attendance by User Id
+// Get Attendance data by User Id
 router.get("/attendance/:id", authentication, controller.getAttendanceByID);
+
+// Get Skrining data by User Id
+router.get("/skrining/:id", authentication, controller.getSkriningByID);
 
 module.exports = router;

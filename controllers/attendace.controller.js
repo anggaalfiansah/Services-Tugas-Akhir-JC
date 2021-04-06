@@ -1,4 +1,5 @@
 const AttendanceData = require("../models/attendance.model");
+const SkriningData = require("../models/skrining.model");
 
 exports.createAttendance = async (req, res) => {
   const { UserID, Nama, Tanggal, Bulan, Tahun, Keterangan } = req.body;
@@ -49,12 +50,23 @@ exports.CheckIn = async (req, res) => {
     const filter = { UserID, Tanggal, Bulan, Tahun };
     const update = { CheckIn };
     const check = await AttendanceData.findOne(filter);
+    const checkSkrining = await SkriningData.findOne(filter);
     if (check.CheckIn === null) {
-      await AttendanceData.updateOne(filter, update).then(() => {
-        res.status(200).json({
-          message: `Selamat datang ${check.Nama}, check In berhasil pada ${update.CheckIn}`,
+      if (checkSkrining.HasilTest == "Resiko Besar") {
+        console.log(err.message);
+        res
+          .status(403)
+          .send("Anda dilarang masuk karena beresiko menularkan Covid-19");
+      } else if (checkSkrining == null || checkSkrining == undefined) {
+        console.log(err.message);
+        res.status(403).send("Silahkan Lakukan Skrining Mandiri Dulu");
+      } else {
+        await AttendanceData.updateOne(filter, update).then(() => {
+          res.status(200).json({
+            message: `Selamat datang ${check.Nama}, check In berhasil pada ${update.CheckIn}`,
+          });
         });
-      });
+      }
     } else {
       res.status(200).json({
         message: `Anda sudah check in pada ${update.CheckIn}`,
