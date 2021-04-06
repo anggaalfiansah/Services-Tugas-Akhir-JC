@@ -54,12 +54,14 @@ exports.CheckIn = async (req, res) => {
     if (check.CheckIn === null) {
       if (checkSkrining.HasilTest == "Resiko Besar") {
         console.log(err.message);
-        res
-          .status(403)
-          .send("Anda dilarang masuk karena beresiko menularkan Covid-19");
+        res.status(403).json({
+          message: "Anda dilarang masuk karena beresiko besar menularkan Covid-19",
+        });
       } else if (checkSkrining == null || checkSkrining == undefined) {
         console.log(err.message);
-        res.status(403).send("Silahkan Lakukan Skrining Mandiri Dulu");
+        res.status(403).json({
+          message: "Silahkan lakukan skrining mandiri terlebih dahulu",
+        });
       } else {
         await AttendanceData.updateOne(filter, update).then(() => {
           res.status(200).json({
