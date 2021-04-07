@@ -66,7 +66,7 @@ exports.CheckIn = async (req, res) => {
         await AttendanceData.updateOne(filter, updateResikoBesar);
         res.status(200).json({
           message:
-            "Anda dilarang masuk karena beresiko besar menularkan Covid-19",
+            "Anda dilarang masuk karena beresiko besar",
         });
       } else {
         await AttendanceData.updateOne(filter, update).then(() => {
@@ -77,7 +77,7 @@ exports.CheckIn = async (req, res) => {
       }
     } else if(check.CheckIn == "Ditolak, Hasil Skrining Beresiko Besar"){
       res.status(200).json({
-        message: "Akses anda sudah ditolak karena beresiko besar terkena Covid-19",
+        message: "Akses anda sudah ditolak karena beresiko besar",
       });
     }else {
       res.status(200).json({

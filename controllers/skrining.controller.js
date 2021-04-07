@@ -23,12 +23,12 @@ exports.createReport = async (req, res) => {
       });
       await data.save().then(() => {
         res.status(200).json({
-          message: `Hasil skrining untuk ${Tanggal} ${Bulan} ${Tahun} telah diterima, dan hasilnya anda memiliki ${HasilTest} terkena Covid-19`,
+          message: `Anda memiliki ${HasilTest}`,
         });
       });
     } else {
-      res.status(403).json({
-        message: `Anda sudah melakukan skrining pada hari ini, dan hasilnya anda memiliki ${skrining.HasilTest} terkena Covid-19`,
+      res.status(200).json({
+        message: `Anda sudah melakukan skrining pada hari ini, dan hasilnya anda memiliki ${skrining.HasilTest}`,
       });
     }
   } catch (err) {
